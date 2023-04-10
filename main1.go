@@ -5,13 +5,10 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"time"
+
+	//"time"
 
 	"github.com/PuerkitoBio/goquery"
-)
-
-const (
-	appURL = "https://play.google.com/store/apps/details?id=com.foxwallet.play"
 )
 
 type VersionInfo2 struct {
@@ -20,7 +17,10 @@ type VersionInfo2 struct {
 	PublishDateTime string
 }
 
-func GooglePlay() (*VersionInfo2, error) {
+func GooglePlay(language string) (*VersionInfo2, error) {
+	// Construct the URL for the app details page in the specified language
+	appURL := fmt.Sprintf("https://play.google.com/store/apps/details?id=com.foxwallet.play&hl=%s", language)
+
 	// Send HTTP GET request to the app page
 	res, err := http.Get(appURL)
 	if err != nil {
@@ -45,8 +45,8 @@ func GooglePlay() (*VersionInfo2, error) {
 
 	publishTimeStr := doc.Find(".xg1aie").First().Text()
 	publishTimeStr = strings.TrimSpace(publishTimeStr)
-	layout := "Jan 2, 2006"
-	publishTime, err := time.Parse(layout, publishTimeStr)
+	//layout := "Jan 2, 2006"
+	//publishTime, err := time.Parse(layout, publishTimeStr)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -55,14 +55,14 @@ func GooglePlay() (*VersionInfo2, error) {
 	versionInfo2 := &VersionInfo2{
 		AppVersion:      strings.TrimSpace(version),
 		UpdateInfo:      strings.TrimSpace(updateInfo),
-		PublishDateTime: strings.TrimSpace(publishTime.Format(time.RFC3339)),
+		PublishDateTime: strings.TrimSpace(publishTimeStr),
 	}
 
 	return versionInfo2, nil
 }
 
 func main() {
-	value, err := GooglePlay()
+	value, err := GooglePlay("en")
 	if err != nil {
 		log.Fatal(err)
 	}
