@@ -113,11 +113,3 @@ func GetGooglePlayVersion(language string) (*VersionInfo, error) {
 	return versionInfo, nil
 
 }
-
-func main() {
-	value, err := GetGooglePlayVersion("en")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	fmt.Println(value, err)
-}

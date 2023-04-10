@@ -3,6 +3,7 @@ module main1
 go 1.20
 
 require (
+	github.com/PuerkitoBio/goquery v1.8.1
 	golang.org/x/oauth2 v0.7.0
 	google.golang.org/api v0.116.0
 )
@@ -10,6 +11,7 @@ require (
 require (
 	cloud.google.com/go/compute v1.19.0 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
+	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
